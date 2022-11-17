@@ -21,8 +21,15 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	// DRAW SCORES
+	ofDrawBitmapString("P1: " + std::to_string(p1Score), 200, 40);
+	ofDrawBitmapString("P2: " + std::to_string(p2Score), 550, 40);
+
 	// DRAW PADDLES
+	ofDrawRectangle(50, p1YPosition, 20, 100);
+	ofDrawRectangle(750, p2YPosition, 20, 100);
+
 	// DRAW BALL
+	ofDrawRectangle(ballXPosition, ballYPosition, 20, 20);
 }
 
 //--------------------------------------------------------------
