@@ -11,7 +11,6 @@ public:
 
 	void keyPressed(int key) override;
 	void keyReleased(int key) override;
-	void windowResized(int w, int h) override;
 
 private:
 	const int canvasWidth{800}, canvasHeight{500};

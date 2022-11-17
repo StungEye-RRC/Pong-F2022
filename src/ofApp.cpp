@@ -26,10 +26,3 @@ void ofApp::keyPressed(int key) {
 void ofApp::keyReleased(int key) {
 
 }
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h) {
-	if (w != canvasWidth || h != canvasHeight) {
-		ofSetWindowShape(canvasWidth, canvasHeight);
-	}
-}
