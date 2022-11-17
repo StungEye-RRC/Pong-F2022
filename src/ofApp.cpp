@@ -10,8 +10,19 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
 	// RALLY RESTART (Conditional on bool)
-	// MOVE PADDLES (Conditional on user input)
+	if (startRally) {
+		startRally = false;
+		ballXPosition = ofGetWidth() / 2.0f;
+		ballYPosition = p2YPosition = p1YPosition = ofGetHeight() / 2.0f;
+
+		ballXSpeed = p1Serves ? 300 : -300;
+		ballYSpeed = ofRandom(0, 200) - 100; // Random from -100 to 100
+
+	}
 	// MOVE BALL
+
+
+	// MOVE PADDLES (Conditional on user input)
 	// BALL BOUNCE ON EDGE (Conditional y position of ball)
 	// BALL BOUNCE ON PADDLE 1 (Conditional y pos & x pos of ball in relation to P1)
 	// BALL BOUNCE ON PADDLE 2 (Conditional y pos & x pos of ball in relation to P2)
