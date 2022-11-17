@@ -25,7 +25,19 @@ void ofApp::update() {
 	ballXPosition += ballXSpeed * ofGetLastFrameTime();
 	ballYPosition += ballYSpeed * ofGetLastFrameTime();
 
-	// MOVE PADDLES (Conditional on user input)
+	// MOVE PADDLES (Conditional on user input. Delta time aware.)
+
+	const double speedChange{300 * ofGetLastFrameTime()};
+
+	if (p1UpPressed) p1YPosition -= speedChange;
+	if (p1DownPressed) p1YPosition += speedChange;
+	if (p2UpPressed) p2YPosition -= speedChange;
+	if (p2DownPressed) p2YPosition += speedChange;
+
+	p1YPosition = ofClamp(p1YPosition, 50, 450);
+	p2YPosition = ofClamp(p2YPosition, 50, 450);
+
+
 	// BALL BOUNCE ON EDGE (Conditional y position of ball)
 	// BALL BOUNCE ON PADDLE 1 (Conditional y pos & x pos of ball in relation to P1)
 	// BALL BOUNCE ON PADDLE 2 (Conditional y pos & x pos of ball in relation to P2)
@@ -58,10 +70,18 @@ void ofApp::draw() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-	// SET USER INPUT BOOLS 
+	// SET USER INPUT BOOLS
+	if (key == 'w') p1UpPressed = true;
+	if (key == 's') p1DownPressed = true;
+	if (key == OF_KEY_UP) p2UpPressed = true;
+	if (key == OF_KEY_DOWN) p2DownPressed = true;
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key) {
 	// UNSET USER INPUT BOOLS
+	if (key == 'w') p1UpPressed = false;
+	if (key == 's') p1DownPressed = false;
+	if (key == OF_KEY_UP) p2UpPressed = false;
+	if (key == OF_KEY_DOWN) p2DownPressed = false;
 }
