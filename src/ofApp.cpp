@@ -18,7 +18,6 @@ void ofApp::update() {
 
 		ballXSpeed = p1Serves ? 300 : -300;
 		ballYSpeed = ofRandom(0, 200) - 100; // Random from -100 to 100
-
 	}
 
 	// MOVE BALL (Delta Time Aware)
@@ -37,8 +36,13 @@ void ofApp::update() {
 	p1YPosition = ofClamp(p1YPosition, 50, 450);
 	p2YPosition = ofClamp(p2YPosition, 50, 450);
 
-
 	// BALL BOUNCE ON EDGE (Conditional y position of ball)
+
+	if (ballYPosition <= 10 || ballYPosition >= 490) {
+		ballYSpeed *= -1;
+		ballYPosition = ofClamp(ballYPosition, 10, 490);
+	}
+
 	// BALL BOUNCE ON PADDLE 1 (Conditional y pos & x pos of ball in relation to P1)
 	// BALL BOUNCE ON PADDLE 2 (Conditional y pos & x pos of ball in relation to P2)
 
