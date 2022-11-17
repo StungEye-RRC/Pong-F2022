@@ -4,6 +4,7 @@
 void ofApp::setup() {
 	ofSetFrameRate(100);
 	ofSetWindowShape(canvasWidth, canvasHeight);
+	ofSetWindowPosition(900, 200);
 	ofSetRectMode(OF_RECTMODE_CENTER);
 }
 
@@ -19,8 +20,10 @@ void ofApp::update() {
 		ballYSpeed = ofRandom(0, 200) - 100; // Random from -100 to 100
 
 	}
-	// MOVE BALL
 
+	// MOVE BALL (Delta Time Aware)
+	ballXPosition += ballXSpeed * ofGetLastFrameTime();
+	ballYPosition += ballYSpeed * ofGetLastFrameTime();
 
 	// MOVE PADDLES (Conditional on user input)
 	// BALL BOUNCE ON EDGE (Conditional y position of ball)
