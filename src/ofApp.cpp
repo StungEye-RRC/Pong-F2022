@@ -29,7 +29,17 @@ void ofApp::update() {
 	// BALL BOUNCE ON EDGE (Conditional y position of ball)
 	// BALL BOUNCE ON PADDLE 1 (Conditional y pos & x pos of ball in relation to P1)
 	// BALL BOUNCE ON PADDLE 2 (Conditional y pos & x pos of ball in relation to P2)
+
 	// CHECK FOR POINT SCORED (Conditional x pos of ball)
+	if (ballXPosition < 0) {
+		++p2Score;
+		startRally = true;
+		p1Serves = false;
+	} else if (ballXPosition > canvasWidth) {
+		++p1Score;
+		startRally = true;
+		p1Serves = true;
+	}
 }
 
 //--------------------------------------------------------------
