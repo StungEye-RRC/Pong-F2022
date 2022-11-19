@@ -40,11 +40,28 @@ void ofApp::update() {
 
 	if (ballYPosition <= 10 || ballYPosition >= 490) {
 		ballYSpeed *= -1;
+		// Maybe instead of clamping the ball should be push back beyond the 
+		// edge by the overlap distance?
 		ballYPosition = ofClamp(ballYPosition, 10, 490);
 	}
 
 	// BALL BOUNCE ON PADDLE 1 (Conditional y pos & x pos of ball in relation to P1)
+	if ((ballXPosition < 70 && ballXPosition > 50)
+		&& (ballYPosition < p1YPosition + 60)
+		&& (ballYPosition > p1YPosition - 60)) {
+		ballXSpeed *= -1;
+		ballYSpeed += 2 * (ballYPosition - p1YPosition);
+		ballXPosition = 70;
+	}
+
 	// BALL BOUNCE ON PADDLE 2 (Conditional y pos & x pos of ball in relation to P2)
+	if ((ballXPosition > 730 && ballXPosition < 750)
+		&& (ballYPosition < p2YPosition + 60)
+		&& (ballYPosition > p2YPosition - 60)) {
+		ballXSpeed *= -1;
+		ballYSpeed += 2 * (ballYPosition - p2YPosition);
+		ballXPosition = 730;
+	}
 
 	// CHECK FOR POINT SCORED (Conditional x pos of ball)
 	if (ballXPosition < 0) {
@@ -61,6 +78,7 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 	// DRAW SCORES
+	ofSetColor(ofColor::white);
 	ofDrawBitmapString("P1: " + std::to_string(p1Score), 200, 40);
 	ofDrawBitmapString("P2: " + std::to_string(p2Score), 550, 40);
 
@@ -69,6 +87,7 @@ void ofApp::draw() {
 	ofDrawRectangle(750, p2YPosition, 20, 100);
 
 	// DRAW BALL
+	ofSetColor(ofColor::cornflowerBlue);
 	ofDrawRectangle(ballXPosition, ballYPosition, 20, 20);
 }
 
