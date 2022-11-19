@@ -2,6 +2,25 @@
 
 #include "ofMain.h"
 
+class PongGame {
+public:
+	enum class GameType { playerVsPlayer, playerVsAi };
+
+	PongGame(GameType gameType) : gameType{gameType} {
+
+	}
+
+	void update(double deltaTime) {
+	}
+
+	void draw() {
+
+	}
+
+private:
+	GameType gameType;
+};
+
 class ofApp : public ofBaseApp {
 
 public:
