@@ -21,7 +21,7 @@ private:
 	const float paddleEdgeBuffer{50.0f};
 	const float ballWidth{20.0f};
 	const float ballHeight{20.0f};
-	const float gameSpeed{400.0f};
+	const float gameSpeed{300.0f};
 
 	MotionSprite p1Paddle{0, 0, paddleWidth, paddleHeight, 0, 0};
 	MotionSprite p2Paddle{0, 0, paddleWidth, paddleHeight, 0, 0};

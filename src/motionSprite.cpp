@@ -36,6 +36,7 @@ void MotionSprite::bounceVerticalWith(Sprite other) {
 		velocity.x *= -1;
 		position.x += overlap;
 	} else if (edge == Edge::top || edge == Edge::bottom) {
+		// Top and bottom hits are still glitchy when paddle is moving towards ball.
 		// Speed things up slightly.
 		velocity.x *= -1.05f;
 		velocity.y *= -1.05f;

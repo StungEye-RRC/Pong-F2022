@@ -54,6 +54,7 @@ void PongGame::gamePlay(float deltaTime, float canvasWidth, float canvasHeight) 
 	p2Paddle.clampToBoundary({0, 0}, {canvasWidth, canvasHeight});
 
 	ball.move(deltaTime);
+	// ball.warpTo({ofGetMouseX(), ofGetMouseY()}); // For testing.
 	ball.bounceHorizontalWithEdge(0, canvasHeight);
 	ball.bounceVerticalWith(p1Paddle);
 	ball.bounceVerticalWith(p2Paddle);
