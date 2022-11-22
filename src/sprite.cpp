@@ -20,7 +20,7 @@ void Sprite::draw() const {
 	ofPopStyle();
 }
 
-Edge Sprite::beyondVerticalBounds(float min, float max) const {
+Edge Sprite::beyondWhichVerticalBound(float min, float max) const {
 	if (position.x <= min) {
 		return Edge::left;
 	}
@@ -32,13 +32,19 @@ Edge Sprite::beyondVerticalBounds(float min, float max) const {
 	return Edge::none;
 }
 
-std::pair<Edge, float> Sprite::intersects(Sprite& other) {
+// Tests to see if this sprite has overlapped another sprite.
+// Returns the edge of this sprite (top, right, bottom, left)
+// has overlapped, and by how much, as a std::pair.
+// If no overlap is present it returns Edge::none.
+std::pair<Edge, float> Sprite::intersects(const Sprite& other) const {
 	const ofRectangle myBoundingBox{boundingBox()};
 	const ofRectangle otherBoundingBox{other.boundingBox()};
 
+	// Early return is there is no intersection.
 	if (!myBoundingBox.intersects(otherBoundingBox)) {
 		return {Edge::none, 0.0f};
 	}
+
 	const ofRectangle intersection = myBoundingBox.getIntersection(otherBoundingBox);
 
 	if (intersection.getHeight() >= intersection.getWidth()) {
@@ -55,6 +61,6 @@ std::pair<Edge, float> Sprite::intersects(Sprite& other) {
 	return {Edge::top, intersection.getHeight()};
 }
 
-ofRectangle Sprite::boundingBox() {
+ofRectangle Sprite::boundingBox() const {
 	return {position.x - width / 2, position.y - height / 2, width, height};
 }

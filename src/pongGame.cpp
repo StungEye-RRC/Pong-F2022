@@ -1,13 +1,11 @@
 #include "pongGame.h"
 
-void PongGame::setup(const GameType& gameType) {
-	playerTurn = (ofRandom(100) > 50) ? PlayerTurn::player1 : PlayerTurn::player2;
+void PongGame::setup() {
 	startRally = true;
+	playerTurn = (ofRandom(100) > 50) ? PlayerTurn::player1 : PlayerTurn::player2;
 
-	if (gameType == GameType::playerVsPlayer) {
-		ofAddListener(ofEvents().keyPressed, this, &PongGame::keyPressedPvP);
-		ofAddListener(ofEvents().keyReleased, this, &PongGame::keyReleasedPvP);
-	}
+	ofAddListener(ofEvents().keyPressed, this, &PongGame::keyPressedPvP);
+	ofAddListener(ofEvents().keyReleased, this, &PongGame::keyReleasedPvP);
 }
 
 void PongGame::update(double deltaTime, float canvasWidth, float canvasHeight) {
@@ -48,33 +46,35 @@ void PongGame::restartRally(float canvasWidth, float canvasHeight) {
 }
 
 void PongGame::gamePlay(float deltaTime, float canvasWidth, float canvasHeight) {
+	// Paddle movement.
 	p1Paddle.move(deltaTime);
 	p2Paddle.move(deltaTime);
 	p1Paddle.clampToBoundary({0, 0}, {canvasWidth, canvasHeight});
 	p2Paddle.clampToBoundary({0, 0}, {canvasWidth, canvasHeight});
 
+	// Ball movement.
 	ball.move(deltaTime);
-	// ball.warpTo({ofGetMouseX(), ofGetMouseY()}); // For testing.
+	//ball.warpTo({ofGetMouseX(), ofGetMouseY()}); // For testing uncomment this and comment-out the line above.
 	ball.bounceHorizontalWithEdge(0, canvasHeight);
-	ball.bounceVerticalWith(p1Paddle);
-	ball.bounceVerticalWith(p2Paddle);
+	ball.bounceWith(p1Paddle);
+	ball.bounceWith(p2Paddle);
 }
 
 void PongGame::checkForWin(float canvasWidth) {
-	const Edge offEdge = ball.beyondVerticalBounds(0, canvasWidth);
+	const Edge offEdge = ball.beyondWhichVerticalBound(0, canvasWidth);
 
 	if (offEdge == Edge::none) return;
 
-	// Someone got a point, so the rally restarts.
+	// Someone just got a point, so the rally restarts.
 	startRally = true;
 
-	// CHECK IF PLAYER 1 SCORES POINT 
+	// Was it player 1 who scored?
 	if (offEdge == Edge::right) {
 		++p1Score;
 		playerTurn = PlayerTurn::player1;
 	}
 
-	// CHECK IF PLAYER 2 SCORES POINT 
+	// Or was it player 2?
 	if (offEdge == Edge::left) {
 		++p2Score;
 		playerTurn = PlayerTurn::player2;

@@ -6,7 +6,7 @@ void ofApp::setup() {
 	ofSetWindowShape(canvasWidth, canvasHeight);
 	ofSetWindowPosition(900, 200);
 	ofSetRectMode(OF_RECTMODE_CENTER);
-	pongGame.setup(PongGame::GameType::playerVsPlayer);
+	pongGame.setup();
 }
 
 //--------------------------------------------------------------

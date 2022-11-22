@@ -4,12 +4,9 @@
 
 class PongGame {
 public:
-	enum class GameType { playerVsPlayer, playerVsAi };
-
 	enum class PlayerTurn { player1, player2 };
 
 private:
-	GameType gameType;
 	PlayerTurn playerTurn;
 
 	bool startRally;
@@ -29,7 +26,7 @@ private:
 
 
 public:
-	void setup(const GameType& gameType);
+	void setup();
 	void update(double deltaTime, float canvasWidth, float canvasHeight);
 	void draw() const;
 
